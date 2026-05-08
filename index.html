@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech Savvy</title>
+<style>
+  :root {
+    --black: #0a0a0a;
+    --red: #9b1c31;
+    --red-bright: #c0392b;
+    --gray: #888;
+    --gray-light: #b0b0b0;
+    --gray-header: #7a7a7a;
+    --white: #ffffff;
+    --footer-gray: #6e6e6e;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: 'Courier New', Courier, monospace;
+    color: #fff;
+    background: var(--footer-gray);
+  }
+
+  /* PAGE VISIBILITY */
+  .page { display: none; }
+  .page.active {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--gray-header);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 30px;
+    height: 85px;
+    position: relative;
+    flex-shrink: 0;
+    width: 100%;
+  }
+  .logo-wrap { position: absolute; left: 50%; transform: translateX(-50%); }
+  .logo-img { height: 70px; width: auto; object-fit: contain; display: block; }
+  .search-bar { display: flex; align-items: center; border: 2px solid #000; background: #e8e8e8; padding: 4px 8px; width: 220px; }
+  .search-bar input { background: transparent; border: none; outline: none; font-family: inherit; font-size: 0.9rem; width: 100%; color: #000; }
+  .search-bar button { background: none; border: none; cursor: pointer; font-size: 1rem; color: #000; }
+
+  /* NAV */
+  nav { background: var(--black); display: flex; border-bottom: 2px solid var(--red); padding: 0 20px; flex-shrink: 0; width: 100%; }
+  nav a { color: #fff; text-decoration: none; padding: 10px 20px; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; }
+  nav a:hover, nav a.active { background: var(--red); }
+
+  /* MAIN - takes all remaining space */
+  main {
+    background: var(--black);
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--footer-gray);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    flex-shrink: 0;
+    width: 100%;
+  }
+  footer span { color: #fff; font-size: 0.85rem; letter-spacing: 1px; }
+  .social-icons { display: flex; gap: 6px; }
+  .social-icons a { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: var(--red); text-decoration: none; }
+  .social-icons a:hover { background: var(--red-bright); }
+
+  /* HOME */
+  .home-hero { display: flex; align-items: center; padding: 50px 60px; gap: 50px; flex: 1; }
+  .home-hero-img { flex-shrink: 0; width: 280px; height: 200px; background: #1a1a1a; border: 2px solid #333; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .home-text { flex: 1; display: flex; flex-direction: column; gap: 18px; }
+  .text-line { height: 16px; background: #333; border-radius: 3px; }
+  .home-stats { display: flex; align-items: center; justify-content: center; margin: 0 60px 50px; border: 1px solid #2a2a2a; background: #111; flex-shrink: 0; }
+  .home-stat-box { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 30px; gap: 8px; }
+  .home-stat-label { font-size: 0.7rem; color: #666; text-transform: uppercase; letter-spacing: 2px; }
+  .home-stat-value { font-size: 1rem; color: #1a8fc4; letter-spacing: 1px; font-weight: bold; }
+  .home-stat-divider { width: 1px; height: 60px; background: #2a2a2a; flex-shrink: 0; }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 30px; padding: 40px; flex: 1; }
+  .about-card { display: flex; flex-direction: column; gap: 10px; }
+  .about-img-top, .about-img-bottom { flex: 1; min-height: 60px; background: #222; border: 1px solid #444; }
+  .about-nav-btn { background: var(--gray); color: #fff; border: none; padding: 14px 10px; font-family: inherit; font-size: 0.75rem; letter-spacing: 1px; text-align: center; cursor: pointer; }
+
+  /* TEAM */
+  .team-banner { background: var(--black); padding: 24px 20px 14px; text-align: center; border-bottom: 3px solid var(--red); flex-shrink: 0; }
+  .team-title { font-size: 2.2rem; font-weight: 900; color: #fff; letter-spacing: 6px; }
+  .team-grid { display: grid; grid-template-columns: repeat(4,1fr); background: var(--black); padding: 16px; gap: 16px; flex: 1; width: 100%; }
+  .team-card { background: #111; color: #fff; overflow: hidden; display: flex; flex-direction: column; border: 1px solid #2a2a2a; min-width: 0; }
+  .team-photo { width: 100%; height: 35vh; object-fit: cover; object-position: center top; display: block; }
+  .team-info { padding: 12px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+  .team-name { font-size: 0.9rem; font-weight: 900; color: #fff; letter-spacing: 1px; }
+  .team-role { font-size: 0.68rem; color: var(--red-bright); text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
+  .team-date { font-size: 0.78rem; color: var(--gray-light); font-weight: bold; margin-bottom: 4px; }
+  .team-bio { font-size: 0.67rem; color: #aaa; line-height: 1.55; }
+
+  /* GALLERY */
+  .gallery-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; padding: 30px 20px; flex: 1; }
+  .gallery-col { display: flex; flex-direction: column; gap: 10px; }
+  .gallery-label { background: var(--gray); color: #fff; padding: 8px 10px; font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; }
+  .gallery-img { flex: 1; min-height: 100px; background: #1a1a1a; border: 1px solid #444; display: flex; align-items: center; justify-content: center; color: #555; font-size: 1.5rem; }
+
+  /* SERVICES */
+  .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 30px; padding: 40px; flex: 1; }
+  .service-card { display: flex; flex-direction: column; gap: 14px; border: 1px solid #333; padding: 10px; }
+  .service-img { flex: 1; min-height: 120px; background: #1a1a1a; border: 1px solid #444; display: flex; align-items: center; justify-content: center; color: #555; font-size: 2rem; }
+  .service-lines { display: flex; flex-direction: column; gap: 8px; padding: 0 4px 10px; }
+
+  /* CONTACT */
+  .contact-content { display: flex; padding: 40px; gap: 40px; flex: 1; }
+  .contact-form { flex: 1.2; display: flex; flex-direction: column; gap: 22px; justify-content: center; }
+  .contact-form input { width: 100%; background: transparent; border: 2px solid var(--gray-light); color: #fff; padding: 12px 14px; font-family: inherit; font-size: 0.9rem; outline: none; }
+  .contact-form input:focus { border-color: var(--red); }
+  .contact-right { flex: 1; display: flex; flex-direction: column; gap: 20px; justify-content: center; }
+  .map-img { width: 100%; overflow: hidden; border: 2px solid #555; }
+  .contact-info { color: #ccc; font-size: 0.82rem; line-height: 2; }
+
+  
+
+  /* SERVICES PAGE */
+  .svc-page { display: flex; flex-direction: column; flex: 1; padding: 24px 30px; gap: 24px; overflow-y: auto; }
+  .svc-video-wrap { width: 100%; flex-shrink: 0; border: 2px solid #333; background: #000; }
+  .svc-video-wrap iframe { width: 100%; height: 360px; display: block; }
+  .svc-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .svc-card { background: #111; border: 1px solid #2a2a2a; border-top: 3px solid var(--red); display: flex; flex-direction: column; align-items: center; padding: 20px; gap: 12px; }
+  .svc-logo { max-width: 120px; max-height: 90px; object-fit: contain; background: #fff; padding: 8px; border-radius: 4px; }
+  .svc-card-name { color: #fff; font-size: 0.9rem; font-weight: 900; letter-spacing: 1px; text-align: center; text-transform: uppercase; }
+  .svc-card-desc { color: #aaa; font-size: 0.72rem; line-height: 1.7; text-align: center; }
+</style>
+</head>
+<body>
+<div class="page active" id="page-home">
+  <header>
+    <div></div>
+    <div class="logo-wrap"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEUAAABGCAYAAACaGVmHAAAMEklEQVR4nO2cW2xV1brHf2OMOdelXYuuXriVWwvt7hFlE9gaT+VEIBGD8YXD4ybRFx+MifpATMyJx+wjJkaiRn0z" alt="Logo"></div>
+    <div class="search-bar"><input type="text" placeholder="Search..." onkeydown="if(event.key==='Enter')doSearch(this.value)"><button onclick="doSearch(this.previousElementSibling.value)">🔍</button></div>
+  </header>
+  <nav><a class="active" onclick="showPage('home')">HOME</a><a onclick="showPage('about')">ABOUT</a><a onclick="showPage('team')">TEAM</a><a onclick="showPage('gallery')">GALLERY</a><a onclick="showPage('services')">SERVICES</a><a onclick="showPage('contact')">CONTACT</a></nav>
+  <main>
+    <div class="home-hero">
+      <div class="home-hero-img">
+        <svg width="100%" height="100%" viewBox="0 0 120 100" preserveAspectRatio="xMidYMid meet">
+          <rect width="120" height="100" fill="#1a1a1a"/>
+          <circle cx="40" cy="28" r="14" fill="none" stroke="#555" stroke-width="2"/>
+          <polygon points="10,90 50,50 70,70 90,40 120,90" fill="none" stroke="#555" stroke-width="2"/>
+          <rect x="5" y="5" width="110" height="90" rx="8" fill="none" stroke="#444" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="home-text">
+        <div class="text-line" style="width:85%"></div>
+        <div class="text-line" style="width:100%"></div>
+        <div class="text-line" style="width:65%"></div>
+      </div>
+    </div>
+    <div class="home-stats">
+      <div class="home-stat-box">
+        <div class="home-stat-label">Today's Date</div>
+        <div id="date-display" class="home-stat-value"></div>
+      </div>
+      <div class="home-stat-divider"></div>
+      <div class="home-stat-box">
+        <div class="home-stat-label">Site Visits</div>
+        <div class="home-stat-value">👁️ <span id="hit-count">0</span></div>
+      </div>
+    </div></main>
+  <footer>
+    <span>&copy; 2026 Tech Savvy LLC. All rights reserved.</span>
+    <div class="social-icons">
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="Facebook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="Twitter/X">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M4 4l16 16M20 4L4 20" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+        </a>
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><circle cx="17.5" cy="6.5" r="1.5"></circle></svg>
+        </a>
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="YouTube">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96c1.71.46 8.59.46 8.59.46s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96 29 29 0 00.46-5.58 29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="black"></polygon></svg>
+        </a>
+      </div>
+  </footer>
+</div><div class="page" id="page-about">
+  <header>
+    <div></div>
+    <div class="logo-wrap"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEUAAABGCAYAAACaGVmHAAAMEklEQVR4nO2cW2xV1brHf2OMOdelXYuuXriVWwvt7hFlE9gaT+VEIBGD8YXD4ybRFx+MifpATMyJx+wjJkaiRn0z" alt="Logo"></div>
+    <div class="search-bar"><input type="text" placeholder="Search..." onkeydown="if(event.key==='Enter')doSearch(this.value)"><button onclick="doSearch(this.previousElementSibling.value)">🔍</button></div>
+  </header>
+  <nav><a onclick="showPage('home')">HOME</a><a class="active" onclick="showPage('about')">ABOUT</a><a onclick="showPage('team')">TEAM</a><a onclick="showPage('gallery')">GALLERY</a><a onclick="showPage('services')">SERVICES</a><a onclick="showPage('contact')">CONTACT</a></nav>
+  <main><div class="about-grid"><div class="about-card">
+        <div class="about-img-top"></div>
+        <button class="about-nav-btn">Information /<br>Navigation</button>
+        <div class="about-img-bottom"></div>
+        <div class="about-img-bottom"></div>
+      </div><div class="about-card">
+        <div class="about-img-top"></div>
+        <button class="about-nav-btn">Information /<br>Navigation</button>
+        <div class="about-img-bottom"></div>
+        <div class="about-img-bottom"></div>
+      </div><div class="about-card">
+        <div class="about-img-top"></div>
+        <button class="about-nav-btn">Information /<br>Navigation</button>
+        <div class="about-img-bottom"></div>
+        <div class="about-img-bottom"></div>
+      </div></div></main>
+  <footer>
+    <span>&copy; 2026 Tech Savvy LLC. All rights reserved.</span>
+    <div class="social-icons">
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="Facebook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="Twitter/X">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M4 4l16 16M20 4L4 20" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+        </a>
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><circle cx="17.5" cy="6.5" r="1.5"></circle></svg>
+        </a>
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="YouTube">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96c1.71.46 8.59.46 8.59.46s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96 29 29 0 00.46-5.58 29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="black"></polygon></svg>
+        </a>
+      </div>
+  </footer>
+</div><div class="page" id="page-team">
+  <header>
+    <div></div>
+    <div class="logo-wrap"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEUAAABGCAYAAACaGVmHAAAMEklEQVR4nO2cW2xV1brHf2OMOdelXYuuXriVWwvt7hFlE9gaT+VEIBGD8YXD4ybRFx+MifpATMyJx+wjJkaiRn0z" alt="Logo"></div>
+    <div class="search-bar"><input type="text" placeholder="Search..." onkeydown="if(event.key==='Enter')doSearch(this.value)"><button onclick="doSearch(this.previousElementSibling.value)">🔍</button></div>
+  </header>
+  <nav><a onclick="showPage('home')">HOME</a><a onclick="showPage('about')">ABOUT</a><a class="active" onclick="showPage('team')">TEAM</a><a onclick="showPage('gallery')">GALLERY</a><a onclick="showPage('services')">SERVICES</a><a onclick="showPage('contact')">CONTACT</a></nav>
+  <main><div class="team-banner"><h1 class="team-title">MEET THE TEAM</h1></div><div class="team-grid"><div class="team-card">
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/" class="team-photo" alt="Jake Newmans">
+        <div class="team-info">
+          <div class="team-name">Jake Newmans</div>
+          <div class="team-role">CEO</div>
+          <div class="team-date">28/09/1988</div>
+          <div class="team-bio">Since founding the company, Jake has driven rapid growth through bold strategic decisions and a focus on innovation.</div>
+        </div>
+      </div><div class="team-card">
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/" class="team-photo" alt="Leo Watkins">
+        <div class="team-info">
+          <div class="team-name">Leo Watkins</div>
+          <div class="team-role">Head Developer</div>
+          <div class="team-date">17/08/2003</div>
+          <div class="team-bio">Leo spearheaded the company's most ambitious software overhaul, improving performance and scalability across all platforms.</div>
+        </div>
+      </div><div class="team-card">
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/" class="team-photo" alt="Ian Richards">
+        <div class="team-info">
+          <div class="team-name">Ian Richards</div>
+          <div class="team-role">Social Media Manager</div>
+          <div class="team-date">17/10/1994</div>
+          <div class="team-bio">Ian revitalized the company's online presence, launching targeted campaigns that significantly boosted engagement and brand recognition.</div>
+        </div>
+      </div><div class="team-card">
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/" class="team-photo" alt="Ivan Mcgrath">
+        <div class="team-info">
+          <div class="team-name">Ivan Mcgrath</div>
+          <div class="team-role">Employee Manager</div>
+          <div class="team-date">28/10/2001</div>
+          <div class="team-bio">Ivan transformed internal operations by implementing modern HR systems, strengthening communication, and supporting professional development.</div>
+        </div>
+      </div></div></main>
+  <footer>
+    <span>&copy; 2026 Tech Savvy LLC. All rights reserved.</span>
+    <div class="social-icons">
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="Facebook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="Twitter/X">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M4 4l16 16M20 4L4 20" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+        </a>
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><circle cx="17.5" cy="6.5" r="1.5"></circle></svg>
+        </a>
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="YouTube">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96c1.71.46 8.59.46 8.59.46s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96 29 29 0 00.46-5.58 29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="black"></polygon></svg>
+        </a>
+      </div>
+  </footer>
+</div><div class="page" id="page-gallery">
+  <header>
+    <div></div>
+    <div class="logo-wrap"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEUAAABGCAYAAACaGVmHAAAMEklEQVR4nO2cW2xV1brHf2OMOdelXYuuXriVWwvt7hFlE9gaT+VEIBGD8YXD4ybRFx+MifpATMyJx+wjJkaiRn0z" alt="Logo"></div>
+    <div class="search-bar"><input type="text" placeholder="Search..." onkeydown="if(event.key==='Enter')doSearch(this.value)"><button onclick="doSearch(this.previousElementSibling.value)">🔍</button></div>
+  </header>
+  <nav><a onclick="showPage('home')">HOME</a><a onclick="showPage('about')">ABOUT</a><a onclick="showPage('team')">TEAM</a><a class="active" onclick="showPage('gallery')">GALLERY</a><a onclick="showPage('services')">SERVICES</a><a onclick="showPage('contact')">CONTACT</a></nav>
+  <main><div class="gallery-grid"><div class="gallery-col">
+        <div class="gallery-label">Title and Description</div>
+        <div class="gallery-img">📷</div>
+        <div class="gallery-img">📷</div>
+      </div><div class="gallery-col">
+        <div class="gallery-label">Title and Description</div>
+        <div class="gallery-img">📷</div>
+        <div class="gallery-img">📷</div>
+      </div><div class="gallery-col">
+        <div class="gallery-label">Title and Description</div>
+        <div class="gallery-img">📷</div>
+        <div class="gallery-img">📷</div>
+      </div><div class="gallery-col">
+        <div class="gallery-label">Title and Description</div>
+        <div class="gallery-img">📷</div>
+        <div class="gallery-img">📷</div>
+      </div></div></main>
+  <footer>
+    <span>&copy; 2026 Tech Savvy LLC. All rights reserved.</span>
+    <div class="social-icons">
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="Facebook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="Twitter/X">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M4 4l16 16M20 4L4 20" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+        </a>
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><circle cx="17.5" cy="6.5" r="1.5"></circle></svg>
+        </a>
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="YouTube">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96c1.71.46 8.59.46 8.59.46s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96 29 29 0 00.46-5.58 29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="black"></polygon></svg>
+        </a>
+      </div>
+  </footer>
+</div><div class="page" id="page-services">
+  <header>
+    <div></div>
+    <div class="logo-wrap"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEUAAABGCAYAAACaGVmHAAAMEklEQVR4nO2cW2xV1brHf2OMOdelXYuuXriVWwvt7hFlE9gaT+VEIBGD8YXD4ybRFx+MifpATMyJx+wjJkaiRn0z" alt="Logo"></div>
+    <div class="search-bar"><input type="text" placeholder="Search..." onkeydown="if(event.key==='Enter')doSearch(this.value)"><button onclick="doSearch(this.previousElementSibling.value)">🔍</button></div>
+  </header>
+  <nav>
+    <a onclick="showPage('home')">HOME</a>
+    <a onclick="showPage('about')">ABOUT</a>
+    <a onclick="showPage('team')">TEAM</a>
+    <a onclick="showPage('gallery')">GALLERY</a>
+    <a class="active" onclick="showPage('services')">SERVICES</a>
+    <a onclick="showPage('contact')">CONTACT</a>
+  </nav>
+  <main>
+    <div class="svc-page">
+
+      <div class="svc-video-wrap">
+        <iframe width="560" height="315"
+src="https://www.youtube.com/embed/p1QU3kLFPdg"
+title="YouTube video player"
+frameborder="0"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+allowfullscreen>
+</iframe>
+      </div>
+
+      <div class="svc-cards">
+        <div class="svc-card">
+          <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4e" class="svc-logo" alt="Jet Centre">
+          <div class="svc-card-name">Jet Centre</div>
+          <div class="svc-card-desc">Tech Savvy provides full IT infrastructure management and on-site support for Jet Centre, ensuring seamless operations across all entertainment systems.</div>
+        </div>
+        <div class="svc-card">
+          <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4e" class="svc-logo" alt="Gareth's Takeaways">
+          <div class="svc-card-name">Gareth's Takeaways</div>
+          <div class="svc-card-desc">We handle network setup, EPOS system maintenance and cybersecurity solutions for Gareth's Takeaways, keeping their ordering and payment systems running reliably.</div>
+        </div>
+        <div class="svc-card">
+          <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4e" class="svc-logo" alt="Coleraine F.C.">
+          <div class="svc-card-name">Coleraine F.C.</div>
+          <div class="svc-card-desc">Tech Savvy supports Coleraine F.C. with website management, ticketing system support and internal communications infrastructure, helping the club stay connected.</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+  <footer>
+    <span>&copy; 2026 Tech Savvy LLC. All rights reserved.</span>
+    <div class="social-icons">
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="Facebook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="Twitter/X">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M4 4l16 16M20 4L4 20" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+        </a>
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><circle cx="17.5" cy="6.5" r="1.5"></circle></svg>
+        </a>
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="YouTube">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96c1.71.46 8.59.46 8.59.46s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96 29 29 0 00.46-5.58 29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="black"></polygon></svg>
+        </a>
+      </div>
+  </footer>
+</div>
+
+<div class="page" id="page-contact">
+  <header>
+    <div></div>
+    <div class="logo-wrap"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEUAAABGCAYAAACaGVmHAAAMEklEQVR4nO2cW2xV1brHf2OMOdelXYuuXriVWwvt7hFlE9gaT+VEIBGD8YXD4ybRFx+MifpATMyJx+wjJkaiRn0z" alt="Logo"></div>
+    <div class="search-bar"><input type="text" placeholder="Search..." onkeydown="if(event.key==='Enter')doSearch(this.value)"><button onclick="doSearch(this.previousElementSibling.value)">🔍</button></div>
+  </header>
+  <nav><a onclick="showPage('home')">HOME</a><a onclick="showPage('about')">ABOUT</a><a onclick="showPage('team')">TEAM</a><a onclick="showPage('gallery')">GALLERY</a><a onclick="showPage('services')">SERVICES</a><a class="active" onclick="showPage('contact')">CONTACT</a></nav>
+  <main><div class="contact-content">
+      <div class="contact-form">
+        <input type="text" placeholder="Your Name">
+        <input type="email" placeholder="Email Address">
+        <input type="tel" placeholder="Phone Number">
+        <input type="text" placeholder="Subject">
+      </div>
+      <div class="contact-right">
+        <div class="map-img"><iframe
+src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2298.8!2d-6.6721!3d55.1330!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4860ef1a2e3f7f6f%3A0x7f6c2b3e4d5a1b2c!2sNorthern%20Regional%20College"
+width="100%" height="220" style="border:0;display:block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        <div class="contact-info">
+          <div>📍 Union St, Coleraine BT52 1QA</div>
+          <div>🏢 Northern Regional College</div>
+          <div>📧 info@techsavvysolutions.co.uk</div>
+          <div>🌐 www.techsavvysolutions.co.uk</div>
+        </div>
+      </div>
+    </div></main>
+  <footer>
+    <span>&copy; 2026 Tech Savvy LLC. All rights reserved.</span>
+    <div class="social-icons">
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="Facebook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="Twitter/X">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M4 4l16 16M20 4L4 20" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+        </a>
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><circle cx="17.5" cy="6.5" r="1.5"></circle></svg>
+        </a>
+        <a href="https://www.techsavvysolutions.co.uk" target="_blank" title="YouTube">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96c1.71.46 8.59.46 8.59.46s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96 29 29 0 00.46-5.58 29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="black"></polygon></svg>
+        </a>
+      </div>
+  </footer>
+</div>
+<script>
+  let hitCount = parseInt(localStorage.getItem('ts_hits') || '0') + 1;
+  localStorage.setItem('ts_hits', hitCount);
+
+  function updateDateTime() {
+    const now = new Date();
+    const date = document.getElementById('date-display');
+    if (date) date.textContent = now.toLocaleDateString('en-GB', {weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const hc = document.getElementById('hit-count');
+    if (hc) hc.textContent = hitCount;
+    updateDateTime();
+  });
+
+  function doSearch(q) {
+    if (q.trim()) window.open('https://www.google.com/search?q=' + encodeURIComponent(q.trim()), '_blank');
+  }
+
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+</script>
+</body>
+</html>
