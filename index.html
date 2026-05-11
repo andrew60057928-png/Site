@@ -48,16 +48,18 @@
     flex-shrink: 0;
     width: 100%;
   }
-  .logo-wrap { position: absolute; left: 50%; transform: translateX(-50%); }
-  .logo-img { height: 70px; width: auto; object-fit: contain; display: block; }
+  .logo-wrap { position: absolute; left: 50%; top: 4px; transform: translateX(-50%); z-index: 5; pointer-events: none; }
+  .logo-wrap img, .logo-img { height: 80px; width: auto; max-width: 200px; object-fit: contain; display: block; }
   .search-bar { display: flex; align-items: center; border: 2px solid #000; background: #e8e8e8; padding: 4px 8px; width: 220px; }
   .search-bar input { background: transparent; border: none; outline: none; font-family: inherit; font-size: 0.9rem; width: 100%; color: #000; }
   .search-bar button { background: none; border: none; cursor: pointer; font-size: 1rem; color: #000; }
 
   /* NAV */
-  nav { background: var(--black); display: flex; border-bottom: 2px solid var(--red); padding: 0 20px; flex-shrink: 0; width: 100%; }
+  nav { background: var(--black); display: flex; border-bottom: 2px solid var(--red); padding: 0 20px; flex-shrink: 0; width: 100%; align-items: center; }
   nav a { color: #fff; text-decoration: none; padding: 10px 20px; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; }
   nav a:hover, nav a.active { background: var(--red); }
+  .hamburger { display: none; background: none; border: none; color: #fff; font-size: 1.5rem; padding: 12px 18px; cursor: pointer; margin-left: auto; line-height: 1; }
+  .hamburger:hover { color: var(--red); }
 
   /* MAIN - takes all remaining space */
   main {
@@ -101,6 +103,11 @@
   .about-card { display: flex; flex-direction: column; gap: 14px; background: #111; border: 1px solid #2a2a2a; border-top: 3px solid var(--red); padding: 22px; }
   .about-card h3 { color: #fff; font-size: 1.05rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 900; }
   .about-card p { color: #aaa; font-size: 0.82rem; line-height: 1.7; }
+  .about-preview { width: 100%; height: 240px; background: #000; border: 1px solid #2a2a2a; overflow: hidden; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 10px; }
+  .about-preview > img { width: 100%; height: 100%; object-fit: cover; }
+  .about-preview.split img { width: 48%; height: 100%; object-fit: contain; background: #fff; padding: 10px; border-radius: 4px; }
+  .about-card h3 { font-size: 1.2rem; }
+  .about-card p { font-size: 0.88rem; line-height: 1.75; }
   .about-card .about-nav-btn { margin-top: auto; }
   .about-nav-btn { background: var(--red); color: #fff; border: none; padding: 12px 14px; font-family: inherit; font-size: 0.75rem; letter-spacing: 2px; text-align: center; cursor: pointer; text-transform: uppercase; font-weight: bold; }
   .about-nav-btn:hover { background: var(--red-bright); }
@@ -108,14 +115,18 @@
   /* TEAM */
   .team-banner { background: var(--black); padding: 24px 20px 14px; text-align: center; border-bottom: 3px solid var(--red); flex-shrink: 0; }
   .team-title { font-size: 2.2rem; font-weight: 900; color: #fff; letter-spacing: 6px; }
-  .team-grid { display: grid; grid-template-columns: repeat(4,1fr); background: var(--black); padding: 16px; gap: 16px; flex: 1; width: 100%; }
-  .team-card { background: #111; color: #fff; overflow: hidden; display: flex; flex-direction: column; border: 1px solid #2a2a2a; min-width: 0; }
-  .team-photo { width: 100%; height: 35vh; object-fit: cover; object-position: center top; display: block; }
-  .team-info { padding: 12px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
-  .team-name { font-size: 0.9rem; font-weight: 900; color: #fff; letter-spacing: 1px; }
-  .team-role { font-size: 0.68rem; color: var(--red-bright); text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
-  .team-date { font-size: 0.78rem; color: var(--gray-light); font-weight: bold; margin-bottom: 4px; }
-  .team-bio { font-size: 0.67rem; color: #aaa; line-height: 1.55; }
+  .team-grid { display: grid; grid-template-columns: repeat(4,1fr); background: var(--black); padding: 12px; gap: 12px; flex: 1; width: 100%; min-height: 0; }
+  .team-card { background: #111; color: #fff; overflow: hidden; display: flex; flex-direction: column; border: 1px solid #2a2a2a; border-top: 3px solid var(--red); min-width: 0; min-height: 0; }
+  .team-photo { width: 100%; flex: 1; min-height: 200px; object-fit: cover; object-position: center 20%; display: block; }
+  .team-info { padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; min-height: 0; flex-shrink: 0; }
+  .team-name { font-size: 0.95rem; font-weight: 900; color: #fff; letter-spacing: 1px; }
+  .team-role { font-size: 0.7rem; color: var(--red-bright); text-transform: uppercase; letter-spacing: 1.5px; font-weight: bold; }
+  .team-date { font-size: 0.72rem; color: var(--gray-light); font-weight: bold; margin-bottom: 4px; }
+  .team-bio { font-size: 0.72rem; color: #bbb; line-height: 1.5; overflow-y: auto; flex: 1; }
+  .team-bio p { margin-bottom: 6px; }
+  .team-bio p:last-child { margin-bottom: 0; }
+  .team-banner { padding: 12px 20px 8px; }
+  .team-title { font-size: 1.6rem; letter-spacing: 4px; }
 
   /* GALLERY */
   .gallery-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; padding: 30px 20px; flex: 1; }
@@ -123,7 +134,9 @@
   .gallery-label { background: var(--gray); color: #fff; padding: 10px 12px; font-size: 0.8rem; letter-spacing: 1px; }
   .gallery-label strong { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px; }
   .gallery-label span { font-size: 0.7rem; color: #ddd; font-weight: normal; line-height: 1.4; }
-  .gallery-img { flex: 1; min-height: 120px; background: #1a1a1a; border: 1px solid #444; display: flex; align-items: center; justify-content: center; color: #555; font-size: 1.5rem; }
+  .gallery-img { flex: 1; min-height: 120px; background: #1a1a1a; border: 1px solid #444; overflow: hidden; }
+  .gallery-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+  .gallery-img:hover img { transform: scale(1.05); }
 
   /* SERVICES */
   .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 30px; padding: 40px; flex: 1; }
@@ -132,49 +145,89 @@
   .service-lines { display: flex; flex-direction: column; gap: 8px; padding: 0 4px 10px; }
 
   /* CONTACT */
-  .contact-content { display: flex; padding: 40px; gap: 40px; flex: 1; }
-  .contact-form { flex: 1.2; display: flex; flex-direction: column; gap: 22px; justify-content: center; }
-  .contact-form input, .contact-form textarea { width: 100%; background: transparent; border: 2px solid var(--gray-light); color: #fff; padding: 12px 14px; font-family: inherit; font-size: 0.9rem; outline: none; resize: vertical; }
+  .contact-content { display: flex; padding: 22px 32px; gap: 32px; flex: 1; min-height: 0; }
+  .contact-form { flex: 1.2; display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+  .contact-form input, .contact-form textarea { width: 100%; background: transparent; border: 2px solid var(--gray-light); color: #fff; padding: 11px 14px; font-family: inherit; font-size: 0.9rem; outline: none; resize: none; }
+  .contact-form textarea { flex: 1; min-height: 90px; }
   .contact-form input:focus, .contact-form textarea:focus { border-color: var(--red); }
-  .contact-send { align-self: flex-start; background: var(--red); color: #fff; border: none; padding: 12px 30px; font-family: inherit; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; font-weight: bold; cursor: pointer; }
+  .contact-send { align-self: flex-start; background: var(--red); color: #fff; border: none; padding: 12px 30px; font-family: inherit; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; font-weight: bold; cursor: pointer; flex-shrink: 0; }
   .contact-send:hover { background: var(--red-bright); }
-  .contact-intro { color: #fff; font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
-  .contact-intro::after { content: ''; display: block; width: 50px; height: 3px; background: var(--red); margin-top: 8px; }
-  .contact-sub { color: #aaa; font-size: 0.85rem; line-height: 1.6; margin-bottom: 6px; }
-  .contact-right { flex: 1; display: flex; flex-direction: column; gap: 20px; justify-content: center; }
-  .map-img { width: 100%; overflow: hidden; border: 2px solid #555; }
-  .contact-info { color: #ccc; font-size: 0.82rem; line-height: 2; }
+  .contact-intro { color: #fff; font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; flex-shrink: 0; }
+  .contact-intro::after { content: ''; display: block; width: 50px; height: 3px; background: var(--red); margin-top: 6px; }
+  .contact-sub { color: #aaa; font-size: 0.85rem; line-height: 1.55; margin-bottom: 4px; flex-shrink: 0; }
+  .contact-right { flex: 1; display: flex; flex-direction: column; gap: 14px; min-height: 0; }
+  .map-img { width: 100%; overflow: hidden; border: 2px solid #555; flex: 1; min-height: 200px; display: flex; }
+  .map-img iframe { width: 100%; flex: 1; height: 100% !important; min-height: 0; }
+  .contact-info { color: #ccc; font-size: 0.82rem; line-height: 1.7; flex-shrink: 0; }
 
   
 
   /* SERVICES PAGE */
-  .svc-page { display: flex; flex-direction: column; flex: 1; padding: 24px 30px; gap: 24px; overflow-y: auto; }
+  .svc-page { display: flex; flex-direction: column; flex: 1; padding: 14px 20px; gap: 14px; min-height: 0; }
   .svc-video-wrap { width: 100%; flex-shrink: 0; border: 2px solid #333; background: #000; }
-  .svc-video-wrap iframe { width: 100%; height: 360px; display: block; }
-  .svc-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
-  .svc-card { background: #111; border: 1px solid #2a2a2a; border-top: 3px solid var(--red); display: flex; flex-direction: column; align-items: center; padding: 20px; gap: 12px; }
-  .svc-logo { max-width: 120px; max-height: 90px; object-fit: contain; background: #fff; padding: 8px; border-radius: 4px; }
-  .svc-card-name { color: #fff; font-size: 0.9rem; font-weight: 900; letter-spacing: 1px; text-align: center; text-transform: uppercase; }
-  .svc-card-desc { color: #aaa; font-size: 0.72rem; line-height: 1.7; text-align: center; }
+  .svc-video-wrap iframe { width: 100%; height: 38vh; min-height: 220px; display: block; }
+  .svc-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; flex: 1; min-height: 0; }
+  .svc-card { background: #111; border: 1px solid #2a2a2a; border-top: 3px solid var(--red); display: flex; flex-direction: column; align-items: center; padding: 14px; gap: 10px; min-height: 0; }
+  .svc-logo { max-width: 110px; max-height: 70px; object-fit: contain; background: #fff; padding: 6px; border-radius: 4px; }
+  .svc-card-name { color: #fff; font-size: 0.88rem; font-weight: 900; letter-spacing: 1px; text-align: center; text-transform: uppercase; }
+  .svc-card-desc { color: #aaa; font-size: 0.72rem; line-height: 1.55; text-align: center; }
+
+  /* RESPONSIVE / MOBILE */
+  @media (max-width: 900px) {
+    header { padding: 6px 14px; height: 70px; }
+    .logo-wrap img, .logo-img { height: 60px; }
+    .search-bar { width: 160px; }
+    nav { flex-direction: column; padding: 0; position: relative; align-items: stretch; }
+    .hamburger { display: block; align-self: flex-end; margin-left: 0; }
+    nav .nav-links { display: none; flex-direction: column; width: 100%; background: var(--black); border-top: 1px solid #2a2a2a; }
+    nav.open .nav-links { display: flex; }
+    nav .nav-links a { padding: 14px 20px; font-size: 0.9rem; border-bottom: 1px solid #1a1a1a; text-align: left; }
+    nav .nav-links a:last-child { border-bottom: none; }
+    .home-hero { flex-direction: column; padding: 30px 20px; gap: 24px; text-align: center; }
+    .home-hero-img { width: 100%; max-width: 420px; height: 220px; }
+    .home-headline { font-size: 1.5rem; letter-spacing: 1px; }
+    .home-headline::after { margin-left: auto; margin-right: auto; }
+    .home-stats { margin: 0 20px 30px; flex-direction: column; }
+    .home-stat-divider { width: 80%; height: 1px; }
+    .about-grid { grid-template-columns: 1fr; padding: 24px 18px; gap: 22px; }
+    .about-preview { height: 200px; }
+    .team-grid { grid-template-columns: repeat(2, 1fr); padding: 12px; gap: 12px; }
+    .team-photo { height: 240px; }
+    .team-title { font-size: 1.5rem; letter-spacing: 3px; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); padding: 18px 14px; gap: 14px; }
+    .services-grid { grid-template-columns: 1fr; padding: 24px 18px; }
+    .svc-page { padding: 18px; }
+    .svc-video-wrap iframe { height: 240px; }
+    .svc-cards { grid-template-columns: 1fr; gap: 16px; }
+    .contact-content { flex-direction: column; padding: 24px 18px; gap: 24px; }
+    .map-img iframe { height: 260px; }
+    footer { flex-direction: column; gap: 10px; padding: 14px; text-align: center; }
+  }
+  @media (max-width: 520px) {
+    .logo-wrap { position: static; transform: none; }
+    header { justify-content: center; flex-wrap: wrap; gap: 10px; height: auto; padding: 10px; }
+    .search-bar { width: 100%; max-width: 280px; }
+    nav a { padding: 6px 10px; font-size: 0.7rem; letter-spacing: 0.5px; }
+    .team-grid { grid-template-columns: 1fr; }
+    .team-photo { height: 280px; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .home-headline { font-size: 1.25rem; }
+    .home-para { font-size: 0.85rem; }
+  }
 </style>
 </head>
 <body>
 <div class="page active" id="page-home">
   <header>
     <div></div>
-    <div class="logo-wrap"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEUAAABGCAYAAACaGVmHAAAMEklEQVR4nO2cW2xV1brHf2OMOdelXYuuXriVWwvt7hFlE9gaT+VEIBGD8YXD4ybRFx+MifpATMyJx+wjJkaiRn0z" alt="Logo"></div>
+    <div class="logo-wrap"><img src="logo.png" alt="Logo"></div>
     <div class="search-bar"><input type="text" placeholder="Search..." onkeydown="if(event.key==='Enter')doSearch(this.value)"><button onclick="doSearch(this.previousElementSibling.value)">🔍</button></div>
   </header>
-  <nav><a class="active" onclick="showPage('home')">HOME</a><a onclick="showPage('about')">ABOUT</a><a onclick="showPage('team')">TEAM</a><a onclick="showPage('gallery')">GALLERY</a><a onclick="showPage('services')">SERVICES</a><a onclick="showPage('contact')">CONTACT</a></nav>
+  <nav><button class="hamburger" onclick="this.parentNode.classList.toggle('open')" aria-label="Menu">☰</button><div class="nav-links"><a class="active" onclick="navTo('home')">HOME</a><a onclick="navTo('about')">ABOUT</a><a onclick="navTo('team')">TEAM</a><a onclick="navTo('gallery')">GALLERY</a><a onclick="navTo('services')">SERVICES</a><a onclick="navTo('contact')">CONTACT</a></div></nav>
   <main>
     <div class="home-hero">
       <div class="home-hero-img">
-        <svg width="100%" height="100%" viewBox="0 0 120 100" preserveAspectRatio="xMidYMid meet">
-          <rect width="120" height="100" fill="#1a1a1a"/>
-          <circle cx="40" cy="28" r="14" fill="none" stroke="#555" stroke-width="2"/>
-          <polygon points="10,90 50,50 70,70 90,40 120,90" fill="none" stroke="#555" stroke-width="2"/>
-          <rect x="5" y="5" width="110" height="90" rx="8" fill="none" stroke="#444" stroke-width="2"/>
-        </svg>
+        <img src="office.gif" alt="Tech Savvy office in motion" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
       <div class="home-text">
         <h1 class="home-headline">Welcome to Tech Savvy Solutions</h1>
@@ -213,27 +266,33 @@
 </div><div class="page" id="page-about">
   <header>
     <div></div>
-    <div class="logo-wrap"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEUAAABGCAYAAACaGVmHAAAMEklEQVR4nO2cW2xV1brHf2OMOdelXYuuXriVWwvt7hFlE9gaT+VEIBGD8YXD4ybRFx+MifpATMyJx+wjJkaiRn0z" alt="Logo"></div>
+    <div class="logo-wrap"><img src="logo.png" alt="Logo"></div>
     <div class="search-bar"><input type="text" placeholder="Search..." onkeydown="if(event.key==='Enter')doSearch(this.value)"><button onclick="doSearch(this.previousElementSibling.value)">🔍</button></div>
   </header>
-  <nav><a onclick="showPage('home')">HOME</a><a class="active" onclick="showPage('about')">ABOUT</a><a onclick="showPage('team')">TEAM</a><a onclick="showPage('gallery')">GALLERY</a><a onclick="showPage('services')">SERVICES</a><a onclick="showPage('contact')">CONTACT</a></nav>
+  <nav><button class="hamburger" onclick="this.parentNode.classList.toggle('open')" aria-label="Menu">☰</button><div class="nav-links"><a onclick="navTo('home')">HOME</a><a class="active" onclick="navTo('about')">ABOUT</a><a onclick="navTo('team')">TEAM</a><a onclick="navTo('gallery')">GALLERY</a><a onclick="navTo('services')">SERVICES</a><a onclick="navTo('contact')">CONTACT</a></div></nav>
   <main><div class="about-grid">
       <div class="about-card">
-        <h3>Our Story</h3>
-        <p>Tech Savvy Solutions was founded in Coleraine in 2018 with a single mission: bring enterprise-grade IT to local businesses without the enterprise price tag.</p>
-        <p>Seven years on, we support clients across hospitality, retail, sport and entertainment — proudly Northern Irish, proudly independent.</p>
+        <h3>Meet The Team</h3>
+        <div class="about-preview"><img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Our team"></div>
+        <p>From our CEO <strong>Jake Newmans</strong> to head developer <strong>Leo Watkins</strong>, social media lead <strong>Ian Richards</strong> and employee manager <strong>Ivan Mcgrath</strong>, our four-strong core team has grown Tech Savvy from a Coleraine garage into one of the area's most trusted IT firms.</p>
+        <p>Between us we hold certifications in Cisco networking, Microsoft 365 administration, cybersecurity and modern web development. Every job that comes through the door is touched by someone who genuinely cares about getting it right.</p>
+        <p>Get to know the faces behind the company. Their backgrounds, their roles and what each of them brings to the table when you pick up the phone.</p>
         <button class="about-nav-btn" onclick="showPage('team')">Meet The Team</button>
       </div>
       <div class="about-card">
-        <h3>Our Mission</h3>
-        <p>We make technology simple. From a single broken printer to a full network overhaul, we treat every job with the same care and clear communication.</p>
-        <p>No tech jargon. No surprise invoices. Just reliable systems and a number you can actually phone when something goes wrong.</p>
+        <h3>Services</h3>
+        <div class="about-preview split"><img src="gareths.png" alt="Gareth's Takeaways"><img src="360-3605245_coleraine-fc-coleraine-fc-logo.png" alt="Coleraine F.C."></div>
+        <p>We're proud to count <strong>Gareth's Takeaways</strong> and <strong>Coleraine F.C.</strong> among our long-standing clients, supporting their EPOS systems, network infrastructure, ticketing platforms and digital presence around the clock.</p>
+        <p>Our services span on-site IT support, structured cabling, server &amp; cloud migration, EPOS deployment, cybersecurity audits, CCTV, website design and ongoing managed support contracts tailored to the size of your business.</p>
+        <p>Whether you're a takeaway opening a second site or a sports club rolling out a new ticketing portal, we scope it, build it and stay with you long after launch.</p>
         <button class="about-nav-btn" onclick="showPage('services')">View Services</button>
       </div>
       <div class="about-card">
         <h3>Our Values</h3>
+        <div class="about-preview"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80" alt="Community values"></div>
         <p>Honesty, craftsmanship and community sit at the centre of everything we do. We sponsor local sport, hire local talent and reinvest in the area we call home.</p>
-        <p>If your business is in or around the Causeway Coast, chances are we already know your neighbours.</p>
+        <p>We quote up-front, talk in plain English and never bill for time we didn't spend. If a job is smaller than we expected, the invoice shrinks too. And if something we installed fails inside its warranty, we're back out the same day to put it right.</p>
+        <p>If your business is in or around the Causeway Coast, chances are we already know your neighbours. We'd love to add you to the list.</p>
         <button class="about-nav-btn" onclick="showPage('contact')">Get In Touch</button>
       </div>
     </div></main>
@@ -257,41 +316,53 @@
 </div><div class="page" id="page-team">
   <header>
     <div></div>
-    <div class="logo-wrap"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEUAAABGCAYAAACaGVmHAAAMEklEQVR4nO2cW2xV1brHf2OMOdelXYuuXriVWwvt7hFlE9gaT+VEIBGD8YXD4ybRFx+MifpATMyJx+wjJkaiRn0z" alt="Logo"></div>
+    <div class="logo-wrap"><img src="logo.png" alt="Logo"></div>
     <div class="search-bar"><input type="text" placeholder="Search..." onkeydown="if(event.key==='Enter')doSearch(this.value)"><button onclick="doSearch(this.previousElementSibling.value)">🔍</button></div>
   </header>
-  <nav><a onclick="showPage('home')">HOME</a><a onclick="showPage('about')">ABOUT</a><a class="active" onclick="showPage('team')">TEAM</a><a onclick="showPage('gallery')">GALLERY</a><a onclick="showPage('services')">SERVICES</a><a onclick="showPage('contact')">CONTACT</a></nav>
+  <nav><button class="hamburger" onclick="this.parentNode.classList.toggle('open')" aria-label="Menu">☰</button><div class="nav-links"><a onclick="navTo('home')">HOME</a><a onclick="navTo('about')">ABOUT</a><a class="active" onclick="navTo('team')">TEAM</a><a onclick="navTo('gallery')">GALLERY</a><a onclick="navTo('services')">SERVICES</a><a onclick="navTo('contact')">CONTACT</a></div></nav>
   <main><div class="team-banner"><h1 class="team-title">MEET THE TEAM</h1></div><div class="team-grid"><div class="team-card">
-        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/" class="team-photo" alt="Jake Newmans">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=900&q=85" class="team-photo" alt="Jake Newmans">
         <div class="team-info">
           <div class="team-name">Jake Newmans</div>
           <div class="team-role">CEO</div>
           <div class="team-date">28/09/1988</div>
-          <div class="team-bio">Since founding the company, Jake has driven rapid growth through bold strategic decisions and a focus on innovation.</div>
+          <div class="team-bio">
+            <p>Jake founded Tech Savvy in 2018 after fifteen years working for large IT consultancies across Belfast and Dublin. He wanted to bring the same calibre of service to small businesses on the Causeway Coast at a price they could actually afford.</p>
+            <p>As CEO, he sets the company's direction, negotiates the bigger contracts and still personally handles every new client onboarding. Outside of work he's a keen sea kayaker and a vocal supporter of local apprenticeship schemes.</p>
+          </div>
         </div>
       </div><div class="team-card">
-        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/" class="team-photo" alt="Leo Watkins">
+        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=900&q=85" class="team-photo" alt="Leo Watkins">
         <div class="team-info">
           <div class="team-name">Leo Watkins</div>
           <div class="team-role">Head Developer</div>
           <div class="team-date">17/08/2003</div>
-          <div class="team-bio">Leo spearheaded the company's most ambitious software overhaul, improving performance and scalability across all platforms.</div>
+          <div class="team-bio">
+            <p>Leo joined Tech Savvy straight out of Ulster University in 2022 and quickly worked his way up to Head Developer. He leads our web, mobile and EPOS development work and has a particular passion for clean, maintainable code.</p>
+            <p>His proudest project to date is the bespoke ticketing portal we built for Coleraine F.C., which now handles thousands of match-day transactions every season without breaking a sweat. When he's not coding, you'll find him modding mechanical keyboards.</p>
+          </div>
         </div>
       </div><div class="team-card">
-        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/" class="team-photo" alt="Ian Richards">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=85" class="team-photo" alt="Ian Richards">
         <div class="team-info">
           <div class="team-name">Ian Richards</div>
           <div class="team-role">Social Media Manager</div>
           <div class="team-date">17/10/1994</div>
-          <div class="team-bio">Ian revitalized the company's online presence, launching targeted campaigns that significantly boosted engagement and brand recognition.</div>
+          <div class="team-bio">
+            <p>Ian runs all of Tech Savvy's marketing, social channels and client communications. Since taking the role in 2021 he has tripled our Instagram following and built a content calendar that keeps the company visible across every platform that matters.</p>
+            <p>He's also our unofficial photographer, capturing the install jobs, charity nights and team events that fill the gallery page. Ian holds a Distinction in Digital Marketing from Belfast Met.</p>
+          </div>
         </div>
       </div><div class="team-card">
-        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/" class="team-photo" alt="Ivan Mcgrath">
+        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=900&q=85" class="team-photo" alt="Ivan Mcgrath">
         <div class="team-info">
           <div class="team-name">Ivan Mcgrath</div>
           <div class="team-role">Employee Manager</div>
           <div class="team-date">28/10/2001</div>
-          <div class="team-bio">Ivan transformed internal operations by implementing modern HR systems, strengthening communication, and supporting professional development.</div>
+          <div class="team-bio">
+            <p>Ivan looks after the people who look after our clients. As Employee Manager he runs recruitment, training, payroll and our apprenticeship programme, working closely with the local college to bring new talent through the door each year.</p>
+            <p>He has a CIPD Level 5 qualification and previously spent eight years in HR at a Belfast engineering firm. Ivan is the reason our staff turnover sits well below industry average and the reason new starters feel at home from day one.</p>
+          </div>
         </div>
       </div></div></main>
   <footer>
@@ -314,30 +385,30 @@
 </div><div class="page" id="page-gallery">
   <header>
     <div></div>
-    <div class="logo-wrap"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEUAAABGCAYAAACaGVmHAAAMEklEQVR4nO2cW2xV1brHf2OMOdelXYuuXriVWwvt7hFlE9gaT+VEIBGD8YXD4ybRFx+MifpATMyJx+wjJkaiRn0z" alt="Logo"></div>
+    <div class="logo-wrap"><img src="logo.png" alt="Logo"></div>
     <div class="search-bar"><input type="text" placeholder="Search..." onkeydown="if(event.key==='Enter')doSearch(this.value)"><button onclick="doSearch(this.previousElementSibling.value)">🔍</button></div>
   </header>
-  <nav><a onclick="showPage('home')">HOME</a><a onclick="showPage('about')">ABOUT</a><a onclick="showPage('team')">TEAM</a><a class="active" onclick="showPage('gallery')">GALLERY</a><a onclick="showPage('services')">SERVICES</a><a onclick="showPage('contact')">CONTACT</a></nav>
+  <nav><button class="hamburger" onclick="this.parentNode.classList.toggle('open')" aria-label="Menu">☰</button><div class="nav-links"><a onclick="navTo('home')">HOME</a><a onclick="navTo('about')">ABOUT</a><a onclick="navTo('team')">TEAM</a><a class="active" onclick="navTo('gallery')">GALLERY</a><a onclick="navTo('services')">SERVICES</a><a onclick="navTo('contact')">CONTACT</a></div></nav>
   <main><div class="gallery-grid">
       <div class="gallery-col">
         <div class="gallery-label"><strong>Office &amp; Network</strong><span>Behind the scenes at our Coleraine HQ and live network installs.</span></div>
-        <div class="gallery-img">📷</div>
-        <div class="gallery-img">📷</div>
+        <div class="gallery-img"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80" alt="Modern office workspace"></div>
+        <div class="gallery-img"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80" alt="Server room"></div>
       </div>
       <div class="gallery-col">
         <div class="gallery-label"><strong>Client Projects</strong><span>EPOS rollouts, server racks and on-site repairs for local businesses.</span></div>
-        <div class="gallery-img">📷</div>
-        <div class="gallery-img">📷</div>
+        <div class="gallery-img"><img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=600&q=80" alt="Network cabling project"></div>
+        <div class="gallery-img"><img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=600&q=80" alt="On-site EPOS install"></div>
       </div>
       <div class="gallery-col">
         <div class="gallery-label"><strong>Community &amp; Events</strong><span>Sponsorship days, trade shows and our annual charity tournament.</span></div>
-        <div class="gallery-img">📷</div>
-        <div class="gallery-img">📷</div>
+        <div class="gallery-img"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=600&q=80" alt="Local community event"></div>
+        <div class="gallery-img"><img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=600&q=80" alt="Trade show stand"></div>
       </div>
       <div class="gallery-col">
         <div class="gallery-label"><strong>Team &amp; Training</strong><span>Certifications, workshops and the people who make it all happen.</span></div>
-        <div class="gallery-img">📷</div>
-        <div class="gallery-img">📷</div>
+        <div class="gallery-img"><img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Team meeting"></div>
+        <div class="gallery-img"><img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" alt="Staff training session"></div>
       </div>
     </div></main>
   <footer>
@@ -360,22 +431,15 @@
 </div><div class="page" id="page-services">
   <header>
     <div></div>
-    <div class="logo-wrap"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEUAAABGCAYAAACaGVmHAAAMEklEQVR4nO2cW2xV1brHf2OMOdelXYuuXriVWwvt7hFlE9gaT+VEIBGD8YXD4ybRFx+MifpATMyJx+wjJkaiRn0z" alt="Logo"></div>
+    <div class="logo-wrap"><img src="logo.png" alt="Logo"></div>
     <div class="search-bar"><input type="text" placeholder="Search..." onkeydown="if(event.key==='Enter')doSearch(this.value)"><button onclick="doSearch(this.previousElementSibling.value)">🔍</button></div>
   </header>
-  <nav>
-    <a onclick="showPage('home')">HOME</a>
-    <a onclick="showPage('about')">ABOUT</a>
-    <a onclick="showPage('team')">TEAM</a>
-    <a onclick="showPage('gallery')">GALLERY</a>
-    <a class="active" onclick="showPage('services')">SERVICES</a>
-    <a onclick="showPage('contact')">CONTACT</a>
-  </nav>
+  <nav><button class="hamburger" onclick="this.parentNode.classList.toggle('open')" aria-label="Menu">☰</button><div class="nav-links"><a onclick="navTo('home')">HOME</a><a onclick="navTo('about')">ABOUT</a><a onclick="navTo('team')">TEAM</a><a onclick="navTo('gallery')">GALLERY</a><a class="active" onclick="navTo('services')">SERVICES</a><a onclick="navTo('contact')">CONTACT</a></div></nav>
   <main>
     <div class="svc-page">
 
       <div class="svc-video-wrap">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/p1QU3kLFPdg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/TG6XSFeOT3g?start=127" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
 
       <div class="svc-cards">
@@ -420,10 +484,10 @@
 <div class="page" id="page-contact">
   <header>
     <div></div>
-    <div class="logo-wrap"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEUAAABGCAYAAACaGVmHAAAMEklEQVR4nO2cW2xV1brHf2OMOdelXYuuXriVWwvt7hFlE9gaT+VEIBGD8YXD4ybRFx+MifpATMyJx+wjJkaiRn0z" alt="Logo"></div>
+    <div class="logo-wrap"><img src="logo.png" alt="Logo"></div>
     <div class="search-bar"><input type="text" placeholder="Search..." onkeydown="if(event.key==='Enter')doSearch(this.value)"><button onclick="doSearch(this.previousElementSibling.value)">🔍</button></div>
   </header>
-  <nav><a onclick="showPage('home')">HOME</a><a onclick="showPage('about')">ABOUT</a><a onclick="showPage('team')">TEAM</a><a onclick="showPage('gallery')">GALLERY</a><a onclick="showPage('services')">SERVICES</a><a class="active" onclick="showPage('contact')">CONTACT</a></nav>
+  <nav><button class="hamburger" onclick="this.parentNode.classList.toggle('open')" aria-label="Menu">☰</button><div class="nav-links"><a onclick="navTo('home')">HOME</a><a onclick="navTo('about')">ABOUT</a><a onclick="navTo('team')">TEAM</a><a onclick="navTo('gallery')">GALLERY</a><a onclick="navTo('services')">SERVICES</a><a class="active" onclick="navTo('contact')">CONTACT</a></div></nav>
   <main><div class="contact-content">
       <form class="contact-form" onsubmit="event.preventDefault(); alert('Thanks! We’ll be in touch within 1 business day.'); this.reset();">
         <div class="contact-intro">Get In Touch</div>
@@ -435,14 +499,16 @@
         <button class="contact-send" type="submit">Send Message</button>
       </form>
       <div class="contact-right">
-        <div class="map-img"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2298.8!2d-6.6721!3d55.1330!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4860ef1a2e3f7f6f%3A0x7f6c2b3e4d5a1b2c!2sNorthern%20Regional%20College" width="100%" height="220" style="border:0;display:block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        <div class="map-img"><iframe src="https://maps.google.com/maps?q=Northern+Regional+College+Union+Street+Coleraine&z=15&output=embed" width="100%" style="border:0;display:block;height:32vh;min-height:180px;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
         <div class="contact-info">
           <div style="color:#fff;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">Visit Us</div>
-          <div>📍 Union St, Coleraine BT52 1QA</div>
-          <div>🏢 Northern Regional College Campus</div>
-          <div>📞 028 7035 4717</div>
+          <ul style="list-style:disc;padding-left:20px;margin:0;">
+            <li>Union St, Coleraine BT52 1QA</li>
+            <li>Northern Regional College Campus</li>
+          </ul>
+          <div style="margin-top:8px;">📞 028 7035 4717</div>
           <div>📧 info@techsavvysolutions.co.uk</div>
-          <div>🕐 Mon–Fri 9:00–17:30 · Sat by appointment</div>
+          <div>🕐 Mon to Fri 9:00 to 17:30 · Sat by appointment</div>
         </div>
       </div>
     </div></main>
@@ -487,8 +553,10 @@
   function showPage(name) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + name).classList.add('active');
+    document.querySelectorAll('nav.open').forEach(n => n.classList.remove('open'));
     window.scrollTo(0, 0);
   }
+  function navTo(name) { showPage(name); }
 </script>
 </body>
 </html>
