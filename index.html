@@ -85,9 +85,11 @@
 
   /* HOME */
   .home-hero { display: flex; align-items: center; padding: 50px 60px; gap: 50px; flex: 1; }
-  .home-hero-img { flex-shrink: 0; width: 280px; height: 200px; background: #1a1a1a; border: 2px solid #333; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .home-hero-img { flex-shrink: 0; width: 320px; height: 230px; background: #1a1a1a; border: 2px solid #333; display: flex; align-items: center; justify-content: center; overflow: hidden; }
   .home-text { flex: 1; display: flex; flex-direction: column; gap: 18px; }
-  .text-line { height: 16px; background: #333; border-radius: 3px; }
+  .home-headline { font-size: 2rem; color: #fff; letter-spacing: 2px; font-weight: 900; line-height: 1.2; }
+  .home-headline::after { content: ''; display: block; width: 60px; height: 3px; background: var(--red); margin-top: 12px; }
+  .home-para { color: #bbb; font-size: 0.9rem; line-height: 1.7; }
   .home-stats { display: flex; align-items: center; justify-content: center; margin: 0 60px 50px; border: 1px solid #2a2a2a; background: #111; flex-shrink: 0; }
   .home-stat-box { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 30px; gap: 8px; }
   .home-stat-label { font-size: 0.7rem; color: #666; text-transform: uppercase; letter-spacing: 2px; }
@@ -96,9 +98,12 @@
 
   /* ABOUT */
   .about-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 30px; padding: 40px; flex: 1; }
-  .about-card { display: flex; flex-direction: column; gap: 10px; }
-  .about-img-top, .about-img-bottom { flex: 1; min-height: 60px; background: #222; border: 1px solid #444; }
-  .about-nav-btn { background: var(--gray); color: #fff; border: none; padding: 14px 10px; font-family: inherit; font-size: 0.75rem; letter-spacing: 1px; text-align: center; cursor: pointer; }
+  .about-card { display: flex; flex-direction: column; gap: 14px; background: #111; border: 1px solid #2a2a2a; border-top: 3px solid var(--red); padding: 22px; }
+  .about-card h3 { color: #fff; font-size: 1.05rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 900; }
+  .about-card p { color: #aaa; font-size: 0.82rem; line-height: 1.7; }
+  .about-card .about-nav-btn { margin-top: auto; }
+  .about-nav-btn { background: var(--red); color: #fff; border: none; padding: 12px 14px; font-family: inherit; font-size: 0.75rem; letter-spacing: 2px; text-align: center; cursor: pointer; text-transform: uppercase; font-weight: bold; }
+  .about-nav-btn:hover { background: var(--red-bright); }
 
   /* TEAM */
   .team-banner { background: var(--black); padding: 24px 20px 14px; text-align: center; border-bottom: 3px solid var(--red); flex-shrink: 0; }
@@ -115,8 +120,10 @@
   /* GALLERY */
   .gallery-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; padding: 30px 20px; flex: 1; }
   .gallery-col { display: flex; flex-direction: column; gap: 10px; }
-  .gallery-label { background: var(--gray); color: #fff; padding: 8px 10px; font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; }
-  .gallery-img { flex: 1; min-height: 100px; background: #1a1a1a; border: 1px solid #444; display: flex; align-items: center; justify-content: center; color: #555; font-size: 1.5rem; }
+  .gallery-label { background: var(--gray); color: #fff; padding: 10px 12px; font-size: 0.8rem; letter-spacing: 1px; }
+  .gallery-label strong { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px; }
+  .gallery-label span { font-size: 0.7rem; color: #ddd; font-weight: normal; line-height: 1.4; }
+  .gallery-img { flex: 1; min-height: 120px; background: #1a1a1a; border: 1px solid #444; display: flex; align-items: center; justify-content: center; color: #555; font-size: 1.5rem; }
 
   /* SERVICES */
   .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 30px; padding: 40px; flex: 1; }
@@ -127,8 +134,13 @@
   /* CONTACT */
   .contact-content { display: flex; padding: 40px; gap: 40px; flex: 1; }
   .contact-form { flex: 1.2; display: flex; flex-direction: column; gap: 22px; justify-content: center; }
-  .contact-form input { width: 100%; background: transparent; border: 2px solid var(--gray-light); color: #fff; padding: 12px 14px; font-family: inherit; font-size: 0.9rem; outline: none; }
-  .contact-form input:focus { border-color: var(--red); }
+  .contact-form input, .contact-form textarea { width: 100%; background: transparent; border: 2px solid var(--gray-light); color: #fff; padding: 12px 14px; font-family: inherit; font-size: 0.9rem; outline: none; resize: vertical; }
+  .contact-form input:focus, .contact-form textarea:focus { border-color: var(--red); }
+  .contact-send { align-self: flex-start; background: var(--red); color: #fff; border: none; padding: 12px 30px; font-family: inherit; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; font-weight: bold; cursor: pointer; }
+  .contact-send:hover { background: var(--red-bright); }
+  .contact-intro { color: #fff; font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+  .contact-intro::after { content: ''; display: block; width: 50px; height: 3px; background: var(--red); margin-top: 8px; }
+  .contact-sub { color: #aaa; font-size: 0.85rem; line-height: 1.6; margin-bottom: 6px; }
   .contact-right { flex: 1; display: flex; flex-direction: column; gap: 20px; justify-content: center; }
   .map-img { width: 100%; overflow: hidden; border: 2px solid #555; }
   .contact-info { color: #ccc; font-size: 0.82rem; line-height: 2; }
@@ -165,9 +177,9 @@
         </svg>
       </div>
       <div class="home-text">
-        <div class="text-line" style="width:85%"></div>
-        <div class="text-line" style="width:100%"></div>
-        <div class="text-line" style="width:65%"></div>
+        <h1 class="home-headline">Welcome to Tech Savvy Solutions</h1>
+        <p class="home-para">Based in Coleraine, we deliver tailored IT support, network infrastructure and digital services to businesses across Northern Ireland. From small takeaways to football clubs and entertainment venues, we keep technology running so you can focus on what matters.</p>
+        <p class="home-para">Our team combines hands-on engineering experience with friendly, jargon-free advice. Whether you need on-site repairs, cybersecurity, EPOS systems or a brand new website, we're the partner your business has been looking for.</p>
       </div>
     </div>
     <div class="home-stats">
@@ -205,22 +217,26 @@
     <div class="search-bar"><input type="text" placeholder="Search..." onkeydown="if(event.key==='Enter')doSearch(this.value)"><button onclick="doSearch(this.previousElementSibling.value)">🔍</button></div>
   </header>
   <nav><a onclick="showPage('home')">HOME</a><a class="active" onclick="showPage('about')">ABOUT</a><a onclick="showPage('team')">TEAM</a><a onclick="showPage('gallery')">GALLERY</a><a onclick="showPage('services')">SERVICES</a><a onclick="showPage('contact')">CONTACT</a></nav>
-  <main><div class="about-grid"><div class="about-card">
-        <div class="about-img-top"></div>
-        <button class="about-nav-btn">Information /<br>Navigation</button>
-        <div class="about-img-bottom"></div>
-        <div class="about-img-bottom"></div>
-      </div><div class="about-card">
-        <div class="about-img-top"></div>
-        <button class="about-nav-btn">Information /<br>Navigation</button>
-        <div class="about-img-bottom"></div>
-        <div class="about-img-bottom"></div>
-      </div><div class="about-card">
-        <div class="about-img-top"></div>
-        <button class="about-nav-btn">Information /<br>Navigation</button>
-        <div class="about-img-bottom"></div>
-        <div class="about-img-bottom"></div>
-      </div></div></main>
+  <main><div class="about-grid">
+      <div class="about-card">
+        <h3>Our Story</h3>
+        <p>Tech Savvy Solutions was founded in Coleraine in 2018 with a single mission: bring enterprise-grade IT to local businesses without the enterprise price tag.</p>
+        <p>Seven years on, we support clients across hospitality, retail, sport and entertainment — proudly Northern Irish, proudly independent.</p>
+        <button class="about-nav-btn" onclick="showPage('team')">Meet The Team</button>
+      </div>
+      <div class="about-card">
+        <h3>Our Mission</h3>
+        <p>We make technology simple. From a single broken printer to a full network overhaul, we treat every job with the same care and clear communication.</p>
+        <p>No tech jargon. No surprise invoices. Just reliable systems and a number you can actually phone when something goes wrong.</p>
+        <button class="about-nav-btn" onclick="showPage('services')">View Services</button>
+      </div>
+      <div class="about-card">
+        <h3>Our Values</h3>
+        <p>Honesty, craftsmanship and community sit at the centre of everything we do. We sponsor local sport, hire local talent and reinvest in the area we call home.</p>
+        <p>If your business is in or around the Causeway Coast, chances are we already know your neighbours.</p>
+        <button class="about-nav-btn" onclick="showPage('contact')">Get In Touch</button>
+      </div>
+    </div></main>
   <footer>
     <span>&copy; 2026 Tech Savvy LLC. All rights reserved.</span>
     <div class="social-icons">
@@ -302,23 +318,28 @@
     <div class="search-bar"><input type="text" placeholder="Search..." onkeydown="if(event.key==='Enter')doSearch(this.value)"><button onclick="doSearch(this.previousElementSibling.value)">🔍</button></div>
   </header>
   <nav><a onclick="showPage('home')">HOME</a><a onclick="showPage('about')">ABOUT</a><a onclick="showPage('team')">TEAM</a><a class="active" onclick="showPage('gallery')">GALLERY</a><a onclick="showPage('services')">SERVICES</a><a onclick="showPage('contact')">CONTACT</a></nav>
-  <main><div class="gallery-grid"><div class="gallery-col">
-        <div class="gallery-label">Title and Description</div>
+  <main><div class="gallery-grid">
+      <div class="gallery-col">
+        <div class="gallery-label"><strong>Office &amp; Network</strong><span>Behind the scenes at our Coleraine HQ and live network installs.</span></div>
         <div class="gallery-img">📷</div>
         <div class="gallery-img">📷</div>
-      </div><div class="gallery-col">
-        <div class="gallery-label">Title and Description</div>
+      </div>
+      <div class="gallery-col">
+        <div class="gallery-label"><strong>Client Projects</strong><span>EPOS rollouts, server racks and on-site repairs for local businesses.</span></div>
         <div class="gallery-img">📷</div>
         <div class="gallery-img">📷</div>
-      </div><div class="gallery-col">
-        <div class="gallery-label">Title and Description</div>
+      </div>
+      <div class="gallery-col">
+        <div class="gallery-label"><strong>Community &amp; Events</strong><span>Sponsorship days, trade shows and our annual charity tournament.</span></div>
         <div class="gallery-img">📷</div>
         <div class="gallery-img">📷</div>
-      </div><div class="gallery-col">
-        <div class="gallery-label">Title and Description</div>
+      </div>
+      <div class="gallery-col">
+        <div class="gallery-label"><strong>Team &amp; Training</strong><span>Certifications, workshops and the people who make it all happen.</span></div>
         <div class="gallery-img">📷</div>
         <div class="gallery-img">📷</div>
-      </div></div></main>
+      </div>
+    </div></main>
   <footer>
     <span>&copy; 2026 Tech Savvy LLC. All rights reserved.</span>
     <div class="social-icons">
@@ -404,19 +425,24 @@
   </header>
   <nav><a onclick="showPage('home')">HOME</a><a onclick="showPage('about')">ABOUT</a><a onclick="showPage('team')">TEAM</a><a onclick="showPage('gallery')">GALLERY</a><a onclick="showPage('services')">SERVICES</a><a class="active" onclick="showPage('contact')">CONTACT</a></nav>
   <main><div class="contact-content">
-      <div class="contact-form">
-        <input type="text" placeholder="Your Name">
-        <input type="email" placeholder="Email Address">
-        <input type="tel" placeholder="Phone Number">
-        <input type="text" placeholder="Subject">
-      </div>
+      <form class="contact-form" onsubmit="event.preventDefault(); alert('Thanks! We’ll be in touch within 1 business day.'); this.reset();">
+        <div class="contact-intro">Get In Touch</div>
+        <div class="contact-sub">Drop us a line and one of the team will reply within one working day. For urgent IT support, please ring us directly.</div>
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Email Address" required>
+        <input type="text" placeholder="Subject" required>
+        <textarea rows="4" placeholder="How can we help?" required></textarea>
+        <button class="contact-send" type="submit">Send Message</button>
+      </form>
       <div class="contact-right">
         <div class="map-img"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2298.8!2d-6.6721!3d55.1330!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4860ef1a2e3f7f6f%3A0x7f6c2b3e4d5a1b2c!2sNorthern%20Regional%20College" width="100%" height="220" style="border:0;display:block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
         <div class="contact-info">
+          <div style="color:#fff;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">Visit Us</div>
           <div>📍 Union St, Coleraine BT52 1QA</div>
-          <div>🏢 Northern Regional College</div>
+          <div>🏢 Northern Regional College Campus</div>
+          <div>📞 028 7035 4717</div>
           <div>📧 info@techsavvysolutions.co.uk</div>
-          <div>🌐 www.techsavvysolutions.co.uk</div>
+          <div>🕐 Mon–Fri 9:00–17:30 · Sat by appointment</div>
         </div>
       </div>
     </div></main>
